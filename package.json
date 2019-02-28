@@ -1,0 +1,28 @@
+{
+  "name": "cms",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gzh51811/CMS.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gzh51811/CMS/issues"
+  },
+  "homepage": "https://github.com/gzh51811/CMS#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "koa": "^2.7.0",
+    "koa-body": "^4.0.8",
+    "koa-router": "^7.4.0",
+    "koa-static": "^5.0.0",
+    "require": "^2.4.20",
+    "supervisor": "^0.12.0"
+  }
+}
