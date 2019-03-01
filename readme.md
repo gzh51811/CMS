@@ -1,12 +1,13 @@
 ```
 /*
  * @writer: 黄理强
- * @LastEditors: 黄理强
+ * @LastEditors: 咕鸽仙人
  * @Date: 2019-02-27 16:48:57
- * @LastEditTime: 2019-03-01 14:39:35
+ * @LastEditTime: 2019-03-01 18:55:19
  * @项目readme
  */
 ```
+
 ## Nodejs项目
 
 >  基于 NodeJS + MongoDB + layUI 开发的 CMS
@@ -65,21 +66,20 @@
 
 ****
 
-### 数据表格
+### 数据库 (databaseName : CMS)
 
-* 超级管理员    (Admins)
+* 超级管理员    (admins)
     * 用户名    userName
     * 权限      permission
     * 手机号    Mobile
     * 邮箱      E-mail
-    * 地址      site
     * 注册时间  regDate
 
 * 普通用户表    (users)
     * 用户名    userName
     * 性别      gender
     * 手机号    Mobile
-    * 邮箱      E-mail
+    * 邮箱      E_mail
     * 地址      site
     * 注册时间  regDate
 
@@ -91,6 +91,8 @@
     * 价格      price
     * 添加时间  addDate
     * 状态      status
+    * 图片      images
+    * 描述      describe
 
 ****
 
@@ -108,5 +110,43 @@
     * 下单时间  buying_time
 
 ****
+### 路由分配
+
+
+> 黄理强
+
+    * 用户路由 user
+        * 渲染用户列表
+        * 搜索用户
+        * 修改
+
+    * 订单 : order
+        * (删除: 删除按键 , 添加按钮)
+        * 查订单号
+        * 修改状态
+
+> 郑晓锋
+
+    * 分类列表  (待修改 : 添加样式)
+        * 赠
+        * 删
+
+    * 商品 : goods
+        * 添加商品
+        * 删
+        * 改
+        * 查
+        * 状态
+
+> 李明钢
+
+    * 登录  login
+        * 查询
+
+    * 超级管理员 admins
+        * 增 (添加管理员)
+        * 删
+        * 改
+        * 查 (查询用户名)
 
 
