@@ -3,7 +3,7 @@
  * @writer: 黄理强
  * @LastEditors: 黄理强
  * @Date: 2019-02-27 16:48:57
- * @LastEditTime: 2019-03-01 14:49:33
+ * @LastEditTime: 2019-03-01 15:08:00
  * @项目readme
  */
 ```
@@ -91,6 +91,7 @@
     * 价格      price
     * 添加时间  addDate
     * 状态      status
+    * 图片      images
 
 ****
 
