@@ -39,25 +39,25 @@ var layout = [{
 		colClass: 'value_col',
 		style: 'width: 60%'
 	},
-	{
-		name: '状态',
-		headerClass: 'td-status',
-		colClass: 'td-status',
-		style: 'width: 10%',
-		render: function(row) {
-			return '<span class="layui-btn layui-btn-normal layui-btn-xs">已启用</span>';
-		}
-	},
+	// {
+	// 	name: '状态',
+	// 	headerClass: 'td-status',
+	// 	colClass: 'td-status',
+	// 	style: 'width: 10%',
+	// 	render: function(row) {
+	// 		return '<span class="layui-btn layui-btn-normal layui-btn-xs">已启用</span>';
+	// 	}
+	// },
 	{
 		name: '操作',
 		headerClass: 'td-manage',
 		colClass: 'td-manage',
 		style: 'width: 20%',
 		render: function(row) {
-			return '<a onclick="member_stop(this,\'10001\')" href="javascript:;" title="启用"><i class="layui-icon">&#xe601;</i></a>' +
-				'<a title="添加子类" onclick="WeAdminShow(\'添加\',\'./category-add.html\')" href="javascript:;"><i class="layui-icon">&#xe654;</i></a>' +
-				'<a title="编辑" onclick="WeAdminShow(\'编辑\',\'./category-edit.html\')" href="javascript:;"><i class="layui-icon">&#xe642;</i></a>' +
-				'<a title="删除" onclick="del(' + row.id + ')" href="javascript:;">\<i class="layui-icon">&#xe640;</i></a>';
+			// return '<a onclick="member_stop(this,\'10001\')" href="javascript:;" title="启用"><i class="layui-icon">&#xe601;</i></a>' +
+			// 	'<a title="添加子类" onclick="WeAdminShow(\'添加\',\'./category-add.html\')" href="javascript:;"><i class="layui-icon">&#xe654;</i></a>' +
+			// 	'<a title="编辑" onclick="WeAdminShow(\'编辑\',\'./category-edit.html\')" href="javascript:;"><i class="layui-icon">&#xe642;</i></a>' +
+			return	'<a title="删除" onclick="del(' + row.id + ')" href="javascript:;">\<i class="layui-icon">&#xe640;</i></a>';
 			//return '<a class="layui-btn layui-btn-danger layui-btn-mini" onclick="del(' + row.id + ')"><i class="layui-icon">&#xe640;</i> 删除</a>'; //列渲染
 		}
 	},
@@ -82,28 +82,40 @@ layui.use(['treeGird', 'jquery', 'admin', 'layer'], function() {
 		spreadable: true, //设置是否全展开，默认不展开
 		nodes: [{
 				"id": "1",
-				"name": "父节点1",
-				"children": [{
-						"id": "11",
-						"name": "子节点11"
-					},
-					{
-						"id": "12",
-						"name": "子节点12"
-					}
-				]
+				"name": "电脑"
+				// "children": [{
+				// 		"id": "11",
+				// 		"name": "子节点11"
+				// 	},
+				// 	{
+				// 		"id": "12",
+				// 		"name": "子节点12"
+				// 	}
+				// ]
 			},
 			{
 				"id": "2",
-				"name": "父节点2",
-				"children": [{
-					"id": "21",
-					"name": "子节点21",
-					"children": [{
-						"id": "211",
-						"name": "子节点211"
-					}]
-				}]
+				"name": "手机"
+				// "children": [{
+				// 	"id": "21",
+				// 	"name": "子节点21",
+				// 	"children": [{
+				// 		"id": "211",
+				// 		"name": "子节点211"
+				// 	}]
+				// }]
+			},
+			{
+				"id": "3",
+				"name": "数码"
+				// "children": [{
+				// 	"id": "21",
+				// 	"name": "子节点21",
+				// 	"children": [{
+				// 		"id": "211",
+				// 		"name": "子节点211"
+				// 	}]
+				// }]
 			}
 		],
 		layout: layout

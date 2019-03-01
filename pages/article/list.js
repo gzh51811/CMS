@@ -17,19 +17,15 @@ layui.use(['table', 'jquery','form', 'admin'], function() {
 			}, {
 				field: 'id',title: 'ID',sort: true
 			}, {
-				field: 'title',title: '标题',templet: '#usernameTpl'
+				field: 'title',title: '商品名称',templet: '#goodsnameTpl'
 			}, {
-				field: 'date',title: '发布时间',sort: true
+				field: 'date',title: '添加时间',sort: true
 			}, {
 				field: 'category',title: '分类',sort: true
 			}, {
-				field: 'sort',title: '排序',sort: true
+				field: 'sort',title: '价格',sort: true
 			}, {
-				field: 'recommend',title: '推荐',templet: '#recommendTpl',unresize: true
-			}, {
-				field: 'top',title: '置顶',templet: '#topTpl',unresize: true
-			}, {
-				field: 'review',title: '审核',templet: '#reviewTpl',unresize: true
+				field: 'recommend',title: '状态',templet: '#recommendTpl',unresize: true
 			}, {
 				field: 'operate',title: '操作',toolbar: '#operateTpl',unresize: true
 			}]
@@ -85,7 +81,7 @@ layui.use(['table', 'jquery','form', 'admin'], function() {
 			var checkStatus = table.checkStatus('articleList'),
 				data = checkStatus.data;
 			if(data.length > 0) {
-				layer.msg("您点击了推荐操作");
+				layer.msg("您点击了上架操作");
 				for(var i = 0; i < data.length; i++) {
 					console.log("a:" + data[i].recommend);
 					data[i].recommend = "checked";
@@ -98,7 +94,7 @@ layui.use(['table', 'jquery','form', 'admin'], function() {
 				layer.msg("请先选择");
 			}
 
-			//$(".layui-table-body .layui-form-checked").parents('tr').children().children('input[name="zzz"]').attr("checked","checked");
+			$(".layui-table-body .layui-form-checked").parents('tr').children().children('input[name="zzz"]').attr("checked","checked");
 		},
 		Top: function() {
 			layer.msg("您点击了置顶操作");
