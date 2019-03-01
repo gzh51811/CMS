@@ -16,7 +16,7 @@
 <body class="login-bg">
     
     <div class="login">
-        <div class="message">管理员登录</div>
+        <div class="message">后台管理系统</div>
         <div id="darkbannerwrap"></div>
         
         <form method="post" class="layui-form" >
@@ -26,9 +26,9 @@
             <hr class="hr15">
             <input class="loginin" value="登录" lay-submit lay-filter="login" style="width:100%;" type="submit">
             <hr class="hr20" >
-            <div>
+            <!-- <div>
             	前端静态展示，请随意输入，即可登录。
-            </div>
+            </div> -->
         </form>
     </div>
 
@@ -47,7 +47,7 @@
               form.on('submit(login)', function(data){
                 // alert(888)
                 layer.msg(JSON.stringify(data.field),function(){
-                    location.href='./index.html'
+                    // location.href='./index.html'
                 });
                 return false;
               });

@@ -15,37 +15,35 @@ layui.use(['table', 'jquery','form', 'admin'], function() {
 			[{
 				type: 'checkbox'
 			}, {
-				field: 'id',title: 'ID',sort: true
+				field: 'id',title: 'ID',price: true
 			}, {
 				field: 'title',title: '商品名称',templet: '#goodsnameTpl'
 			}, {
-				field: 'date',title: '添加时间',sort: true
+				field: 'date',title: '添加时间',price: true
 			}, {
-				field: 'category',title: '分类',sort: true
+				field: 'category',title: '分类',price: true
 			}, {
-				field: 'sort',title: '价格',sort: true
+				field: 'price',title: '价格',price: true
 			}, {
-				field: 'recommend',title: '状态',templet: '#recommendTpl',unresize: true
+				field: 'status',title: '状态',templet: '#recommendTpl',unresize: true
 			}, {
 				field: 'operate',title: '操作',toolbar: '#operateTpl',unresize: true
 			}]
 		],
 		data: [{
 			"id": "1",
-			"title": "WeAdmin的第一个版本在不断地抽空完善学习中",
-			"date": "2018-02-03",
-			"category": "官方动态",
-			"sort": "1",
-			"recommend": "checked",
-			"top": "checked"
+			"title": "惠普(HP) 高性价比小机箱台式机 小欧390(Intel G3900,4G/500G,核显,W10,19.5＂显示器)",
+			"date": "2018-02-06",
+			"category": "电脑",
+			"price": "98",
+			"status": "checked"
 		}, {
 			"id": "2",
 			"title": "WeAdmin的测试数据一二三四五六七",
 			"date": "2018-02-03",
 			"category": "新闻资讯",
-			"sort": "1",
-			"recommend": "",
-			"top": "checked"
+			"price": "1",
+			"status": ""
 		}],
 		event: true,
 		page: true
@@ -73,19 +71,19 @@ layui.use(['table', 'jquery','form', 'admin'], function() {
 					$(".layui-table-body .layui-form-checked").parents('tr').remove();
 				});
 			} else {
-				layer.msg("请先选择需要删除的文章！");
+				layer.msg("请先选择需要删除的商品！");
 			}
 
 		},
-		Recommend: function() {
+		status: function() {
 			var checkStatus = table.checkStatus('articleList'),
 				data = checkStatus.data;
 			if(data.length > 0) {
 				layer.msg("您点击了上架操作");
 				for(var i = 0; i < data.length; i++) {
-					console.log("a:" + data[i].recommend);
-					data[i].recommend = "checked";
-					console.log("aa:" + data[i].recommend);
+					console.log("a:" + data[i].status);
+					data[i].status = "checked";
+					console.log("aa:" + data[i].status);
 					form.render();
 				}
 
