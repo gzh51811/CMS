@@ -3,7 +3,7 @@
  * @writer: 黄理强
  * @LastEditors: 咕鸽仙人
  * @Date: 2019-02-27 16:48:57
- * @LastEditTime: 2019-03-01 15:30:42
+ * @LastEditTime: 2019-03-01 15:39:54
  * @项目readme
  */
 ```
@@ -72,7 +72,6 @@
     * 权限      permission
     * 手机号    Mobile
     * 邮箱      E-mail
-    * 地址      site
     * 注册时间  regDate
 
 * 普通用户表    (users)
@@ -92,6 +91,7 @@
     * 添加时间  addDate
     * 状态      status
     * 图片      images
+    * 描述      describe
 
 ****
 
