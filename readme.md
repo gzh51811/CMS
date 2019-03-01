@@ -1,9 +1,9 @@
 ```
 /*
  * @writer: 黄理强
- * @LastEditors: 黄理强
+ * @LastEditors: 咕鸽仙人
  * @Date: 2019-02-27 16:48:57
- * @LastEditTime: 2019-03-01 15:08:00
+ * @LastEditTime: 2019-03-01 15:30:42
  * @项目readme
  */
 ```
@@ -79,7 +79,7 @@
     * 用户名    userName
     * 性别      gender
     * 手机号    Mobile
-    * 邮箱      E-mail
+    * 邮箱      E_mail
     * 地址      site
     * 注册时间  regDate
 
