@@ -3,7 +3,7 @@
  * @writer: 黄理强
  * @LastEditors: 黄理强
  * @Date: 2019-02-27 16:48:57
- * @LastEditTime: 2019-03-01 14:45:05
+ * @LastEditTime: 2019-03-01 14:49:33
  * @项目readme
  */
 ```
@@ -67,37 +67,46 @@
 
 ### 数据表格
 
-* 用户表
-    * 用户名
-    * 性别
-    * 手机号
-    * 邮箱
-    * 地址
-    * 注册时间
+* 超级管理员    (Admins)
+    * 用户名    userName
+    * 权限      permission
+    * 手机号    Mobile
+    * 邮箱      E-mail
+    * 地址      site
+    * 注册时间  regDate
+
+* 普通用户表    (users)
+    * 用户名    userName
+    * 性别      gender
+    * 手机号    Mobile
+    * 邮箱      E-mail
+    * 地址      site
+    * 注册时间  regDate
 
 ****
 
-* 商品列表
-    * 商品名称
-    * 商品分类
-    * 价格
-    * 添加时间
-    * 状态(上/下架)
+* 商品列表      goods
+    * 商品名称  gName
+    * 商品分类  sort
+    * 价格      price
+    * 添加时间  addDate
+    * 状态      status
 
 ****
 
-* 商品分类
+* 商品分类      sort
 
 ****
 
-* 订单列表
-    * 订单号
-    * 收货人
-    * 金额
-    * 支付状态
-    * 发货状态
-    * 签收状态
-    * 下单时间
+* 订单列表      cart
+    * 订单号    cNum
+    * 收货人    buyer
+    * 金额      total
+    * 支付状态  pay
+    * 发货状态  send_out
+    * 签收状态  arrive
+    * 下单时间  buying_time
 
+****
 
 
