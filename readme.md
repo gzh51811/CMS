@@ -1,9 +1,9 @@
-```
+``` javascript
 /*
  * @writer: 黄理强
  * @LastEditors: 咕鸽仙人
  * @Date: 2019-02-27 16:48:57
- * @LastEditTime: 2019-03-01 18:55:19
+ * @LastEditTime: 2019-03-04 22:34:12
  * @项目readme
  */
 ```
@@ -80,6 +80,7 @@
     * 性别      gender
     * 手机号    Mobile
     * 邮箱      E_mail
+    * 密码      pass
     * 地址      site
     * 注册时间  regDate
 

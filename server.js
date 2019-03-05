@@ -1,19 +1,28 @@
-//1.引入模块
+/*
+ * @writer: 咕鸽仙人
+ * @LastEditors: 咕鸽仙人
+ * @Date: 2019-03-01 11:20:35
+ * @LastEditTime: 2019-03-02 16:30:25
+ * @服务器模块
+ */
+//引入模块
 const koa = require('koa');
 const static = require('koa-static');
 
-//5.引入组件路由
+//引入组件路由
 const routers = require('./api/routers')
 
-//2.创建应用
+//创建应用
 const app = new koa();
 
 
-
-//4.静态资源服务器
+//静态资源服务器
 app.use(static('./'));
 
-//3.监听端口
-app.listen(1811,()=>{
+// 处理status为404或null时，完善response信息
+app.use(routers.allowedMethods());
+app.use(routers.routes());
+//监听端口
+app.listen(1811, () => {
     console.log('the port is running!');
 })

@@ -1,15 +1,25 @@
-//1.引入模块
+/*
+ * @writer: 咕鸽仙人
+ * @LastEditors: 咕鸽仙人
+ * @Date: 2019-03-01 22:51:52
+ * @LastEditTime: 2019-03-02 16:34:04
+ * @路由分配
+ */
 const Koa = require('koa');
 const Router = require('koa-router');
 const koaBody = require('koa-body');
 
-//2.创建路由
-var router = new Router(); 
+// 创建路由
+var router = new Router();
 
-//3.引入路由
-const loginRouter = require('./login');
+// 引入页面路由
+const userRouter = require('./user');
+//post传输支持
+router.use(koaBody({
+  // 支持formData
+  multipart: true,
+}));
 
-//4.进入路由
-router.use('/login',loginRouter.routes());
+router.use('/user', userRouter.routes())
 
 module.exports = router;
