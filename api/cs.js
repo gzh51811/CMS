@@ -2,7 +2,7 @@
  * @writer: 咕鸽仙人
  * @LastEditors: 咕鸽仙人
  * @Date: 2019-02-28 23:11:22
- * @LastEditTime: 2019-03-04 22:36:06
+ * @LastEditTime: 2019-03-05 17:35:29
  * @MongoDB操作封装测试
  */
 const db = require("./db");
@@ -10,9 +10,8 @@ const db = require("./db");
 // 增加测试
 for (let index = 0; index < 100; index++) {
   async function add() {
-    let res = await db.insert("users", {
+    let res = await db.insert("cart", {
 
-      "_id": index,
       "userName": `买家${index + 1}`,
       "gender": "男",
       "Mobile": "13189452320",
