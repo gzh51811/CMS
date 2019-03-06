@@ -299,7 +299,19 @@ layui.define(['jquery', 'form', 'layer', 'element'], function(exports) {
 	    w       弹出层宽度（缺省调默认值）
 	    h       弹出层高度（缺省调默认值）
 	*/
-	window.WeAdminShow = function(title, url, w, h) {
+
+		//lmg分支修改
+		if(sessionStorage.getItem('user')){
+        var who = JSON.parse(sessionStorage.getItem('user'));
+        console.log(who.permission);
+    	}
+
+	window.WeAdminShow = function(title, url, w, h,e) {
+		if(who.permission == "超级管理员"){
+		var e = e||window.event;
+		var userName = e.target.parentNode.parentNode.parentNode.children[2].innerHTML;
+		// console.log(userName);
+		// location.href = `../../pages/admin/edit.html?${userName}`;
 		if(title == null || title == '') {
 			title = false;
 		};
@@ -312,6 +324,7 @@ layui.define(['jquery', 'form', 'layer', 'element'], function(exports) {
 		if(h == null || h == '') {
 			h = ($(window).height() - 50);
 		};
+		url = url+"?"+userName;
 		layer.open({
 			type: 2,
 			area: [w + 'px', h + 'px'],
@@ -322,9 +335,14 @@ layui.define(['jquery', 'form', 'layer', 'element'], function(exports) {
 			title: title,
 			content: url
 		});
+	}else{
+		alert("你不是超级管理员，没有修改其他管理员的权限");
 	}
+	}
+
 	/*弹出层+传递ID参数*/
 	window.WeAdminEdit = function(title, url, id, w, h) {
+
 		if(title == null || title == '') {
 			title = false;
 		};

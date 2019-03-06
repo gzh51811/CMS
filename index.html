@@ -44,7 +44,7 @@
 		</ul>
 		<ul class="layui-nav right" lay-filter="">
 			<li class="layui-nav-item">
-				<a href="javascript:;">Admin</a>
+				<a href="javascript:;" id="whoname">Admin</a>
 				<dl class="layui-nav-child">
 					<!-- 二级菜单 -->
 					<dd>
@@ -297,17 +297,47 @@
 				var login = JSON.parse(localStorage.getItem("login"));
 				if (login) {
 					if (login = 0) {
-						window.location.href = './login.html';
+						// window.location.href = './login.html';
 						return false;
 					} else {
 						return false;
 					}
 				} else {
-					window.location.href = './login.html';
+					// window.location.href = './login.html';
 					return false;
 				}
 			});
 		});
+		var nav = document.getElementById("nav");
+		//登录者的信息
+		var whoname = document.getElementById("whoname");
+		var loginout = document.getElementsByClassName("loginout")[0];
+		if(sessionStorage.getItem('user')){
+			var who = JSON.parse(sessionStorage.getItem('user'));
+			whoname.innerHTML = who.userName;
+			console.log(who.permission);
+			if(who.permission == "普通用户"){
+				console.log(nav.children[1]);
+				//普通用户不能看到商品管理，订单管理，管理员管理
+				nav.children[1].style.display = "none";
+				nav.children[2].style.display = "none";
+				nav.children[3].style.display = "none";
+			}else{
+				nav.children[1].style.display = "block";
+				nav.children[2].style.display = "block";
+				nav.children[3].style.display = "block";
+			}
+
+
+
+
+		}
+		loginout.onclick = function(){
+			sessionStorage.removeItem('user');
+		}
+		
+
+
 
 	</script>
 </body>

@@ -28,7 +28,7 @@
                   autocomplete="off" class="layui-input">
               </div>
               <div class="layui-form-mid layui-word-aux">
-                  <span class="we-red">*</span>将会成为您唯一的登入名
+                  <span class="we-red tipUN">*</span>将会成为您唯一的登入名
               </div>
           </div>
           <div class="layui-form-item">
@@ -96,6 +96,7 @@
 				});
         layui.use(['form','layer','admin'], function(){
           var form = layui.form,
+
           	admin = layui.admin,
           	layer = layui.layer;
           	form.render();
@@ -107,26 +108,117 @@
               }
             }
             ,pass: [/(.+){6,12}$/, '密码必须6到12位']
-            ,repass: function(value){
-                if($('#L_pass').val()!=$('#L_repass').val()){
-                    return '两次密码不一致';
-                }
-            }
+            // ,repass: function(value){
+            //     if($('#L_pass').val()!=$('#L_repass').val()){
+            //         return '两次密码不一致';
+            //     }
+            // }
           });
 
           //监听提交
-          form.on('submit(add)', function(data){
-            console.log(data);
-            //发异步，把数据提交给php
-            layer.alert("增加成功", {icon: 6},function () {
-                // 获得frame索引
-                var index = parent.layer.getFrameIndex(window.name);
-                //关闭当前frame
-                parent.layer.close(index);
-            });
-            return false;
-          });
+          // form.on('submit(add)', function(data){
+          //   console.log(data);
+          //   //发异步，把数据提交给php
+          //   layer.alert("增加成功", {icon: 6},function () {
+          //       // 获得frame索引
+          //       var index = parent.layer.getFrameIndex(window.name);
+          //       //关闭当前frame
+          //       parent.layer.close(index);
+          //   });
+          //   return false;
+          // });
         });
+
+        var layui_btn = document.getElementsByClassName("layui-btn")[0];
+        var userName = document.getElementById("username");
+        var Mobile = document.getElementById("phone");
+        var E_mail = document.getElementById("L_email");
+        var password = document.getElementById("L_pass");
+        var repassword = document.getElementById("L_repass");
+        var permissionbox = document.getElementsByClassName("layui-input-block")[0];
+        var permission = permissionbox.getElementsByTagName("input");
+        var layui1 = document.getElementsByClassName("layui-unselect");
+        
+        //onblur查询登录名是否重复
+        var userNameok = false;
+        userName.onblur = function(){
+          //登录名重复提示
+            var tipUN = document.getElementsByClassName("tipUN")[0];
+            var _userName = userName.value.trim();
+            let xhr = new XMLHttpRequest();
+            xhr.open('get',`/admins/checkname?userName=${_userName}`,true);
+            if(_userName){
+              xhr.send();
+            }
+            
+            xhr.onload = ()=>{
+                if(xhr.status == 200){
+                    let res = JSON.parse(xhr.responseText);
+                    if(res.code==0){
+                      tipUN.innerHTML = "*" + res.msg; 
+                      tipUN.nextSibling.nodeValue =""; 
+                       userNameok = false;
+                    }else{
+                      userNameok = true;
+                      tipUN.innerHTML = "*";
+                      tipUN.nextSibling.nodeValue =res.msg; 
+                    }
+                    
+                }
+            }
+        }
+
+        
+        //点击添加管理员
+        if(sessionStorage.getItem('user')){
+                var who = JSON.parse(sessionStorage.getItem('user'));
+                console.log(who.permission);
+            }
+        layui_btn.onclick = function(){
+          if(who.permission == "超级管理员"){
+
+
+          var regDate = new Date;
+          //获取注册时间
+          var _regDate = regDate.getFullYear()+"-"+ (regDate.getMonth()+1) + "-" + regDate.getDate();
+
+          
+          var _userName = userName.value.trim();
+          var _Mobile = Mobile.value.trim();
+          var _E_mail = E_mail.value.trim();
+          var _password = password.value.trim();
+          var _repassword = repassword.value.trim();
+          //确定添加管理员的权限
+         if(layui1[0].classList.contains('layui-form-checked') && layui1[1].classList.contains('layui-form-checked')){
+          alert("只能选择超级管理员或普通管理员");
+          return ;
+         }else{
+            if(layui1[0].classList.contains('layui-form-checked')){
+                var _permission = permission[0].title;
+            }else if(layui1[1].classList.contains('layui-form-checked')){
+              var _permission = permission[1].title;
+            }
+         }
+
+         let xhr = new XMLHttpRequest();
+         xhr.open('post','/admins/add',true);
+         xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+         let data = `userName=${_userName}&password=${_password}&permission=${_permission}&Mobile=${_Mobile}&E_mail=${_E_mail}&regDate=${_regDate}`;
+
+         if(userName && _Mobile && _E_mail&&_password&& _repassword){
+            if(userNameok){
+              xhr.send(data);
+            }else{
+              alert("换一个名字吧，你的名字太受欢迎了");
+            }
+            
+
+         }
+          console.log("已经点击了");
+        }else{
+            alert("只有超级管理官才有添加管理员的权限");
+         }
+        }
     </script>
   </body>
 

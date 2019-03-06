@@ -2,7 +2,7 @@
  * @writer: 咕鸽仙人
  * @LastEditors: 咕鸽仙人
  * @Date: 2019-02-28 22:54:34
- * @LastEditTime: 2019-03-05 23:37:04
+ * @LastEditTime: 2019-03-06 16:25:48
  * @mongoDB增删改查封装模块
  */
 const mongodb = require("mongodb");
@@ -81,11 +81,11 @@ exports.update = async (colName, query, newData) => {
   return res;
 };
 /**
- * @description: 数据操作:查询
+ * @description:hlq版 数据操作:查询
  * @param : {colName,query,[row]}
  * @return: res
  */
-exports.find = async ({
+exports.find_1 = async ({
   colName,
   query,
   row = 0
@@ -104,6 +104,43 @@ exports.find = async ({
     res = await collection.find(query).toArray();
   }
 
+  client.close();
+
+  // 返回查询结果
+  return res;
+}
+
+
+/**
+ * @description: lmg版查询
+ * @param {type}
+ * @return:
+ */
+
+exports.find = async (colName, query) => {
+
+  let {
+    db,
+    client
+  } = await connect();
+
+  let collection = db.collection(colName);
+  let res = await collection.find(query).toArray();
+  client.close();
+
+  // 返回查询结果
+  return res;
+}
+//分页查找功能
+exports.find1 = async (colName, query, page, qty) => {
+
+  let {
+    db,
+    client
+  } = await connect();
+
+  let collection = db.collection(colName);
+  let res = await collection.find(query).skip(page).limit(qty).toArray();
   client.close();
 
   // 返回查询结果

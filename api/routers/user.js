@@ -2,7 +2,7 @@
  * @writer: 咕鸽仙人
  * @LastEditors: 咕鸽仙人
  * @Date: 2019-03-01 11:20:35
- * @LastEditTime: 2019-03-06 00:30:21
+ * @LastEditTime: 2019-03-06 16:28:00
  * @用户路由
  */
 
@@ -31,7 +31,7 @@ router.get('/', async (ctx, next) => {
     uid = (page * row) - 1;
     // 查询结构
 
-    res = await db.find({
+    res = await db.find_1({
       colName: "users",
       query: {
         _id: {
@@ -44,7 +44,7 @@ router.get('/', async (ctx, next) => {
   };
   //查询总数接口
   if (a === "total") {
-    res = await db.find({
+    res = await db.find_1({
       colName: "users",
       query: {},
     });
@@ -55,7 +55,7 @@ router.get('/', async (ctx, next) => {
       choice,
       name
     } = ctx.query;
-    res = await db.find({
+    res = await db.find_1({
       colName: "users",
       query: {
         userName: `${name}`

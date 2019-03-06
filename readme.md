@@ -1,11 +1,12 @@
 ```javascript
 /*
- * @writer: 咕鸽仙人
+ * @writer: 黄理强
  * @LastEditors: 咕鸽仙人
  * @Date: 2019-02-27 16:48:57
- * @LastEditTime: 2019-03-05 19:51:23
+ * @LastEditTime: 2019-03-06 12:38:37
  * @项目readme
  */
+ 111
 ```
 
 ## Nodejs项目
@@ -52,7 +53,6 @@
     * 删除
 * 用户管理（普通用户）
     * 修改用户信息
-
 
 
 * 订单管理
