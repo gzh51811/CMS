@@ -1,0 +1,4 @@
+{"_id":{"$oid":"5c792225998e27c3f61f02ed"},"userName":"admin","password":"666666","permission":"超级管理员","Mobile":"18128368973","E_mail":"734216836@qq.com","regDate":"2019-3-1"}
+{"_id":{"$oid":"5c79d980a4d14623382a40bc"},"userName":"贝吉塔","password":"123456","permission":"超级管理员","Mobile":"18128368971","E_mail":"734216832@qq.com","regDate":"2019-3-2"}
+{"_id":{"$oid":"5c7c9ef4bc84532e70b0e96f"},"userName":"无量天尊","password":"852852","permission":"普通管理员","Mobile":"13542657894","E_mail":"135444666@qq.com","regDate":"2019-3-4"}
+{"_id":{"$oid":"5c7e5b2e3b103b0b400dd3d8"},"userName":"周润发","password":"123123","permission":"超级管理员","Mobile":"18128368973","E_mail":"734216836@qq.com","regDate":"2019-3-5"}
