@@ -2,24 +2,30 @@
  * @writer: 咕鸽仙人
  * @LastEditors: 咕鸽仙人
  * @Date: 2019-02-28 23:11:22
- * @LastEditTime: 2019-03-05 17:35:29
+ * @LastEditTime: 2019-03-06 00:03:09
  * @MongoDB操作封装测试
  */
 const db = require("./db");
 
 // 增加测试
-for (let index = 0; index < 100; index++) {
+for (let index = 0; index < 50; index++) {
+  let time = new Date();
+  var year = time.getFullYear(); //年
+  var mon = time.getMonth() + 1; //月
+  var day = time.getDate(); //日
+  var hour = time.getHours(); //时
+  var min = time.getMinutes(); //分
+  var sec = time.getSeconds(); //秒
   async function add() {
     let res = await db.insert("cart", {
-
-      "userName": `买家${index + 1}`,
-      "gender": "男",
-      "Mobile": "13189452320",
-      "E_mail": "1414134582@qq.com",
-      "pass": "123456",
-      "site": "广州市天河区",
-      "regDate": Date.now()
-
+      _id: `${index}`,
+      cNum: "" + year + mon + day + hour + min + sec + index,
+      buyer: "买家" + (index + 1),
+      total: min * sec + (index * sec),
+      pay: "1",
+      send_out: "1",
+      arrive: "1",
+      buying_time: year + "-" + mon + "-" + day + "/" + hour + "-" + min,
     });
     console.log(res.result);
   }

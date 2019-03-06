@@ -1,9 +1,9 @@
 ```javascript
 /*
- * @writer: 黄理强
+ * @writer: 咕鸽仙人
  * @LastEditors: 咕鸽仙人
  * @Date: 2019-02-27 16:48:57
- * @LastEditTime: 2019-03-05 17:36:47
+ * @LastEditTime: 2019-03-05 19:51:23
  * @项目readme
  */
 ```
@@ -104,9 +104,9 @@
     * 订单号    cNum
     * 收货人    buyer
     * 金额      total
-    * 支付状态  pay
-    * 发货状态  send_out
-    * 签收状态  arrive
+    * 支付状态  pay (0/1)
+    * 发货状态  send_out (0/1)
+    * 签收状态  arrive (0/1)
     * 下单时间  buying_time
 
 ****
@@ -120,7 +120,6 @@
         * 修改
 
     * 订单 : order
-        * (删除: 删除按键 , 添加按钮)
         * 查订单号
         * 修改状态
 ```

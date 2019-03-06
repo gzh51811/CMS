@@ -2,7 +2,7 @@
  * @writer: 咕鸽仙人
  * @LastEditors: 咕鸽仙人
  * @Date: 2019-02-28 22:54:34
- * @LastEditTime: 2019-03-04 22:52:10
+ * @LastEditTime: 2019-03-05 23:37:04
  * @mongoDB增删改查封装模块
  */
 const mongodb = require("mongodb");
@@ -64,7 +64,7 @@ exports.delete = async (colName, query) => {
 };
 /**
  * @description:数据操作:修改
- * @param : 集合名,{查询条件},{更换的数据}
+ * @param : 集合名,{查询条件},{$set:{更换的数据}}
  * @return:res
  */
 exports.update = async (colName, query, newData) => {
@@ -82,7 +82,7 @@ exports.update = async (colName, query, newData) => {
 };
 /**
  * @description: 数据操作:查询
- * @param : 集合名,{查询条件}
+ * @param : {colName,query,[row]}
  * @return: res
  */
 exports.find = async ({
