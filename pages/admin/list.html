@@ -17,6 +17,9 @@
 	</head>
 
 	<body>
+		<!-- <div class="tanchuang" style="width:200px;height:40px;background=rgba(0,0,0,0.3);">
+			
+		</div> -->
 		<div class="weadmin-nav">
 			<span class="layui-breadcrumb">
         <a href="">首页</a>
@@ -37,15 +40,15 @@
 						<input class="layui-input" placeholder="截止日" name="end" id="end">
 					</div> -->
 					<div class="layui-inline">
-						<input type="text" name="username" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+						<input type="text" name="username" placeholder="请输入用户名" autocomplete="off" class="layui-input" id="findname" >
 					</div>
-					<button class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+					<span id="findnameBtn" class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></span>
 				</form>
 			</div>
 			<div class="weadmin-block">
 				<button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
 				<button class="layui-btn" onclick="WeAdminShow('添加用户','./add.html')"><i class="layui-icon"></i>添加</button>
-				<span class="fr" style="line-height:40px">共有数据：88 条</span>
+				<span class="fr number" style="line-height:40px">共有数据：88 条</span>
 			</div>
 			<table class="layui-table">
 				<thead>
@@ -59,11 +62,11 @@
 						<th>邮箱</th>
 						<th>角色</th>
 						<th>加入时间</th>
-						<th>状态</th>
+						<!-- <th>状态</th> -->
 						<th>操作</th>
 				</thead>
 				<tbody>
-					<tr>
+					<!-- <tr>
 						<td>
 							<div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i></div>
 						</td>
@@ -73,12 +76,253 @@
 						<td>113664000@qq.com</td>
 						<td>超级管理员</td>
 						<td>2017-01-01 11:11:42</td>
-						<td class="td-status">
-							<span class="layui-btn layui-btn-normal layui-btn-xs">已启用</span></td>
+						
 						<td class="td-manage">
-							<a onclick="member_stop(this,'10001')" href="javascript:;" title="启用">
-								<i class="layui-icon">&#xe601;</i>
+							
+							<a title="编辑" onclick="WeAdminShow('编辑','./edit.html')" href="javascript:;">
+								<i class="layui-icon">&#xe642;</i>
 							</a>
+							<a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
+								<i class="layui-icon">&#xe640;</i>
+							</a>
+						</td>
+					</tr> -->
+				</tbody>
+			</table>
+			<div class="page">
+				<div>
+					<!-- <a class="prev" href="">&lt;&lt;</a>
+					<a class="num" href="">1</a>
+					<span class="current">2</span>
+					<a class="num" href="">3</a>
+					<a class="num" href="">489</a>
+					<a class="next" href="">&gt;&gt;</a> -->
+				</div>
+			</div>
+		</div>
+		<script src="../../lib/layui/layui.js" charset="utf-8"></script>
+    	<script src="../../static/js/eleDel.js" type="text/javascript" charset="utf-8"></script>
+    	<script type="text/javascript">
+
+            
+    		var tbody = document.getElementsByTagName("tbody")[0];
+    		var number = document.getElementsByClassName("number")[0];
+    		var pagenumber = document.getElementsByClassName("page")[0].children[0];
+    		var findname = document.getElementById("findname");
+            var findnameBtn = document.getElementById("findnameBtn");
+ 			var prev = document.getElementsByClassName("prev")[0];
+ 			let xhr1 = new XMLHttpRequest();
+    		let xhr = new XMLHttpRequest();
+    		var url = '/admins/show';
+    		xhr.open('post',url,true);
+    		xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+    		var page = 1;
+    		var qty = 6;
+    		var data = `page=${page}&qty=6`;
+    		xhr.send(data);
+    	
+    		xhr.onload = function(){
+    			if(xhr.status == 200){
+    				
+    				showlist();
+    				
+	    		}
+	    	}
+
+    		//点击对应的页码，进行跳转
+    		pagenumber.onclick = function(ev){
+    			var ev = ev || window.event;
+
+                if(ev.target.className == "prev"){
+                    page = page - 1;
+                    if(page <=1){
+                        page = 1;
+                    }
+                    console.log("prev");
+                }else if(ev.target.className == "next"){
+                    page = page + 1;
+                   
+                    if(page >= pagenumber.children.length-2){
+                        page = pagenumber.children.length-2;
+                    }
+                    console.log("next");
+                }
+                if(ev.target.className == "num"){
+                    page = ev.target.innerHTML*1;
+                    console.log(ev.target.innerHTML);
+                    console.log("页码");
+                    // ev.target.className = "num";
+
+                }
+    			
+    			
+    			for(var k=1;k<pagenumber.children.length-1;k++){
+    				pagenumber.children[k].classList.remove("current");
+                    pagenumber.children[k].classList.add("num");
+
+    			}
+    			pagenumber.children[page].classList.add("current");
+
+  				xhr1.open('post',url,true);
+    			xhr1.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+    			var data1 = `page=${page}&qty=6`;
+    			xhr1.send(data1);
+    			xhr1.onload = function(){
+    				if(xhr1.status == 200){
+    					
+    					showlist2();
+    				}
+    			}
+    			console.log(page);
+    		}
+
+            //查找用户
+            findnameBtn.onclick = function(){
+                var e = e || window.event;
+
+                var _findname = findname.value.trim();
+                if(_findname){
+                    var xhr2 = new XMLHttpRequest();
+                    xhr2.open('get',`/admins/find?userName=${_findname}`,true);
+                    xhr2.send();
+                    xhr2.onload = function(){
+                       if(xhr2.status == 200){
+                            var arr2 = JSON.parse(xhr2.responseText);
+                            console.log(arr2);
+                            number.innerHTML = `共有数据：1条`;
+                    
+                var res = arr2.list.map(function(item){  
+
+                            ID++;
+                            return  `
+                            <tr data-id=${ID}>
+                        <td>
+                            <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id=${ID}><i class="layui-icon">&#xe605;</i></div>
+                        </td>
+                        <td>${ID}</td>
+                        <td>${item.userName}</td>
+                        <td>${item.Mobile}</td>
+                        <td>${item.E_mail}</td>
+                        <td>${item.permission}</td>
+                        <td>${item.regDate}</td>
+                        
+                        <td class="td-manage">
+                            
+                            <a title="编辑" onclick="WeAdminShow('编辑','./edit.html')" href="javascript:;">
+                                <i class="layui-icon">&#xe642;</i>
+                            </a>
+                            <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
+                                <i class="layui-icon">&#xe640;</i>
+                            </a>
+                        </td>
+                    </tr>
+                        `;
+                    }).join(' ');
+                tbody.innerHTML = res;
+                       } 
+                        pagenumber.innerHTML = '';
+                    }
+
+                }else{
+                    return ;
+                }
+                    
+
+            }
+            //点击打勾
+            tbody.onclick =function(e){
+                e = e || window.target;
+                if(e.target.className == 'layui-icon'){
+                    if(e.target.parentNode.classList.contains('layui-form-checked')){
+                        e.target.parentNode.classList.remove("layui-form-checked");
+                    }else{
+                        e.target.parentNode.classList.add("layui-form-checked");
+                    }
+      
+                }
+            }
+
+
+    		let ID =0;
+    		function showlist(){
+
+    				var arr=JSON.parse(xhr.responseText);
+    				number.innerHTML = `共有数据：${arr.zongshu} 条`;
+    				
+    			var res = arr.list.map(function(item){			
+    						ID++;
+    						return  `
+    						<tr data-id=${ID}>
+						<td>
+							<div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id=${ID}><i class="layui-icon">&#xe605;</i></div>
+						</td>
+						<td>${ID}</td>
+						<td>${item.userName}</td>
+						<td>${item.Mobile}</td>
+						<td>${item.E_mail}</td>
+						<td>${item.permission}</td>
+						<td>${item.regDate}</td>
+						
+						<td class="td-manage">
+							
+							<a title="编辑" onclick="WeAdminShow('编辑','./edit.html')" href="javascript:;" class="xiugai">
+								<i class="layui-icon">&#xe642;</i>
+							</a>
+							<a title="删除"   onclick="member_del(this,'要删除的id')" href="javascript:;" class="del">
+								<i class="layui-icon">&#xe640;</i>
+							</a>
+
+						</td>
+					</tr>
+    					`;
+    				}).join(' ');
+    			tbody.innerHTML = res;
+              
+                //生成页码
+                pagenumber.innerHTML = '';
+    			for(var i=0;i<Math.ceil(arr.zongshu/6)+2;i++){
+ 						if(i == 0){
+ 							var dianma = `<a class="prev" href="javascript:;">&lt;&lt;</a>`;
+ 						}else if(i == Math.ceil(arr.zongshu/6)+1){
+ 							var dianma = `<a class="next" href="javascript:;">&gt;&gt;</a>`;
+ 						}else{
+ 							var dianma = `<span class="num" href="">${i}</span>`;
+ 						}
+ 						pagenumber.innerHTML += dianma;
+ 						
+ 					}
+ 					
+ 					pagenumber.children[1].className = "current";
+ 					
+ 					
+    			
+    		}
+
+    		function showlist2(){
+
+    				var arr=JSON.parse(xhr1.responseText);
+    				number.innerHTML = `共有数据：${arr.zongshu} 条`;
+    				
+    			var res = arr.list.map(function(item){			
+    						ID++;
+
+                        //     <td>
+                        //     <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i></div>
+                        // </td>
+    						return  `
+    						<tr data-id=${ID}>
+						<td>
+							<div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id=${ID}><i class="layui-icon">&#xe605;</i></div>
+						</td>
+						<td>${ID}</td>
+						<td>${item.userName}</td>
+						<td>${item.Mobile}</td>
+						<td>${item.E_mail}</td>
+						<td>${item.permission}</td>
+						<td>${item.regDate}</td>
+						
+						<td class="td-manage">
+							
 							<a title="编辑" onclick="WeAdminShow('编辑','./edit.html')" href="javascript:;">
 								<i class="layui-icon">&#xe642;</i>
 							</a>
@@ -87,21 +331,14 @@
 							</a>
 						</td>
 					</tr>
-				</tbody>
-			</table>
-			<div class="page">
-				<div>
-					<a class="prev" href="">&lt;&lt;</a>
-					<a class="num" href="">1</a>
-					<span class="current">2</span>
-					<a class="num" href="">3</a>
-					<a class="num" href="">489</a>
-					<a class="next" href="">&gt;&gt;</a>
-				</div>
-			</div>
-		</div>
-		<script src="../../lib/layui/layui.js" charset="utf-8"></script>
-    	<script src="../../static/js/eleDel.js" type="text/javascript" charset="utf-8"></script>
+    					`;
+    				}).join(' ');
+    			tbody.innerHTML = res;
+    	
+    		}
+
+
+    	</script>
 	</body>
 
 </html>

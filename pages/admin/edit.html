@@ -3,7 +3,7 @@
   
   <head>
     <meta charset="UTF-8">
-    <title>欢迎页面-WeAdmin Frame型后台管理系统-WeAdmin 1.0</title>
+    <title>编辑管理员</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
@@ -28,7 +28,7 @@
                   autocomplete="off" value="admin" class="layui-input">
               </div>
               <div class="layui-form-mid layui-word-aux">
-                  <span class="we-red">*</span>将会成为您唯一的登入名
+                  <span class="we-red tipUN">*</span>将会成为您唯一的登入名
               </div>
           </div>
           <div class="layui-form-item">
@@ -55,14 +55,14 @@
                   <span class="we-red">*</span>
               </div>
           </div>
-          <div class="layui-form-item">
+          <!-- <div class="layui-form-item">
               <label class="layui-form-label"><span class="we-red">*</span>角色</label>
               <div class="layui-input-block">
-                <input type="checkbox" name="like1[write]" lay-skin="primary" title="超级管理员" checked="">
-                <input type="checkbox" name="like1[read]" lay-skin="primary" title="编辑人员">
-                <input type="checkbox" name="like1[write]" lay-skin="primary" title="宣传人员" >
+                <input type="checkbox" name="like1[write]" lay-skin="primary" title="超级管理员" checked="" class="layui-unselect">
+                <input type="checkbox" name="like1[read]" lay-skin="primary" title="普通管理员" class="layui-unselect">
+                
               </div>
-          </div>
+          </div> -->
           <div class="layui-form-item">
               <label for="L_pass" class="layui-form-label">
                   <span class="we-red">*</span>密码
@@ -87,22 +87,23 @@
           <div class="layui-form-item">
               <label for="L_repass" class="layui-form-label">
               </label>
-              <button  class="layui-btn" lay-filter="add" lay-submit="">
-                  增加
-              </button>
+              <span  class="layui-btn" lay-filter="add" lay-submit="">
+                  修改
+              </span>
           </div>
       </form>
     </div>
 		<script src="../../lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript">
     	layui.extend({
-				admin: '{/}../../static/js/admin'
-			});
-	    layui.use(['form','layer','admin'], function(){
-	      var form = layui.form,
-	      	admin = layui.admin,
-	      	layer = layui.layer;
-        
+          admin: '{/}../../static/js/admin'
+        });
+        layui.use(['form','layer','admin'], function(){
+          var form = layui.form,
+
+            admin = layui.admin,
+            layer = layui.layer;
+            form.render();
           //自定义验证规则
           form.verify({
             nikename: function(value){
@@ -111,27 +112,135 @@
               }
             }
             ,pass: [/(.+){6,12}$/, '密码必须6到12位']
-            ,repass: function(value){
-                if($('#L_pass').val()!=$('#L_repass').val()){
-                    return '两次密码不一致';
-                }
-            }
+            // ,repass: function(value){
+            //     if($('#L_pass').val()!=$('#L_repass').val()){
+            //         return '两次密码不一致';
+            //     }
+            // }
           });
 
           //监听提交
-          form.on('submit(add)', function(data){
-            console.log(data);
-            //发异步，把数据提交给php
-            layer.alert("增加成功", {icon: 6},function () {
-                // 获得frame索引
-                var index = parent.layer.getFrameIndex(window.name);
-                //关闭当前frame
-                parent.layer.close(index);
-            });
-            return false;
-          });
-          
+          // form.on('submit(add)', function(data){
+          //   console.log(data);
+          //   //发异步，把数据提交给php
+          //   layer.alert("增加成功", {icon: 6},function () {
+          //       // 获得frame索引
+          //       var index = parent.layer.getFrameIndex(window.name);
+          //       //关闭当前frame
+          //       parent.layer.close(index);
+          //   });
+          //   return false;
+          // });
         });
+        var layui_btn = document.getElementsByClassName("layui-btn")[0];
+        var userName = document.getElementById("username");
+        var Mobile = document.getElementById("phone");
+        var E_mail = document.getElementById("L_email");
+        var password = document.getElementById("L_pass");
+        var repassword = document.getElementById("L_repass");
+        
+         
+        
+
+        //渲染原本的管理信息
+        
+        var comeName = location.search.slice(1);
+        console.log(comeName);
+        var xhr = new XMLHttpRequest();
+        xhr.open('get',`/admins/find?userName=${comeName}`,true);
+        xhr.send();
+        xhr.onload = function(){
+          if(xhr.status == 200){
+            var arr = JSON.parse(xhr.responseText);
+            console.log(arr);
+            if(arr.list[0]){
+                userName.value = arr.list[0].userName;
+            Mobile.value = arr.list[0].Mobile;
+            E_mail.value = arr.list[0].E_mail;
+            console.log(arr.list[0].userName);
+
+
+            var userNameok = true;
+        userName.onchange = function(){
+          //登录名重复提示
+            var tipUN = document.getElementsByClassName("tipUN")[0];
+            var _userName = userName.value.trim();
+            let xhr1 = new XMLHttpRequest();
+            xhr1.open('get',`/admins/checkname?userName=${_userName}`,true);
+            if(_userName){
+              xhr1.send();
+            }
+            
+            xhr1.onload = ()=>{
+                if(xhr.status == 200){
+                    let res = JSON.parse(xhr1.responseText);
+                    if(res.code==0){
+                      console.log(res.msg);
+                       if(res.list == comeName){
+                          userNameok = true;
+                         
+                          
+                       }else{
+                        
+                          tipUN.innerHTML = "*" + res.msg; 
+                          tipUN.nextSibling.nodeValue =""; 
+                         userNameok = false;
+                       }
+                    }else{
+                      userNameok = true;
+                      tipUN.innerHTML = "*";
+                      tipUN.nextSibling.nodeValue =res.msg; 
+                    }
+                    
+                }
+            }
+        }
+
+
+
+
+
+
+
+
+
+            layui_btn.onclick = function(){
+             var _password = password.value.trim();
+             var _repassword = repassword.value.trim();
+             var _userName = userName.value;
+             var _Mobile = Mobile.value;
+             var _E_mail = E_mail.value;
+             if(_password&&_repassword){
+                if(_password == _repassword){
+                  var xhr2 = new XMLHttpRequest();
+                  xhr2.open('post',"/admins/xiugai",true);
+                  xhr2.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+                  var data =`userName=${_userName}&password=${_password}&Mobile=${_Mobile}&E_mail=${_E_mail}&oldname=${arr.list[0].userName}`;
+                  if(userNameok){
+                    xhr2.send(data);
+                  }else{
+                    alert("存在不符合规则，修改失败");
+                    return;
+                  }
+                  console.log(_userName,_Mobile);
+                  
+                }
+             }else{
+              return;
+             }
+
+            }
+            }
+            
+          }
+        }
+
+
+
+        
+
+
+
     </script>
   </body>
 

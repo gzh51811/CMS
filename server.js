@@ -12,7 +12,7 @@ const app = new koa();
 
 //4.静态资源服务器
 app.use(static('./'));
-
+app.use(routers.routes());
 //3.监听端口
 app.listen(1811,()=>{
     console.log('the port is running!');
