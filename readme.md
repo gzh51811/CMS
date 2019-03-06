@@ -1,30 +1,71 @@
 ```javascript
 /*
  * @writer: 黄理强
- * @LastEditors: 咕鸽仙人
+ * @LastEditors: 黄理强
  * @Date: 2019-02-27 16:48:57
- * @LastEditTime: 2019-03-06 12:38:37
+ * @LastEditTime: 2019-03-06 19:44:22
  * @项目readme
  */
- 111
 ```
 
 ## Nodejs项目
 
 >  基于 NodeJS + MongoDB + layUI 开发的 CMS
 
-### 使用技术
+#### 使用技术
 
      UI框架 : layUI
      后端语言 : NodeJS
      数据库 : MongoDB
 
-### 说明
+#### 说明
      项目名称 : 后台管理系统
      人员结构 : 郑晓锋 黄理强 李明钢
-     演示地址 : xxx
+     演示地址 : huangdashuaibi.top
+     账号: 超级管理员:
+                账号:admin
+                密码:666666
+           普通管理员:
+                账号:无量天尊
+                密码:852852
+           买家账号:
+                账号:买家1
+                密码:666666
 
-### 模块划分
+#### 文件目录树
+``` javascript
+    CMS * 根目录
+    │
+    ├─api   * 路由
+    │  ├─db * 数据库操作
+    │  ├─routers    * 路由接口
+    │  └─utils      * token
+    │
+    ├─data  * 数据库备份
+    │
+    ├─lib   * 框架
+    │
+    ├─node_modules  * nodejs插件
+    │
+    ├─pages * 子页面
+    │  │
+    │  ├─admin      * 管理员页面
+    │  │
+    │  ├─article    * 商品页面
+    │  │
+    │  ├─echarts    * 数据可视化
+    │  │
+    │  ├─member     * 用户页面
+    │  │
+    │  └─order      * 订单页面
+    │
+    ├─static        * 存放css js 等数据
+    │
+    ├─uploads       * 存放商品图片
+```
+
+
+#### 模块划分
 
 * 数据可视化
     * 数据统计
@@ -128,7 +169,7 @@
     * 分类列表  (待修改 : 添加样式)
         * 赠
         * 删
-
+    
     * 商品 : goods
         * 添加商品
         * 删
@@ -140,7 +181,7 @@
 
     * 登录  login
         * 查询
-
+    
     * 超级管理员 admins
         * 增 (添加管理员)
         * 删
