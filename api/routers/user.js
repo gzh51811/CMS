@@ -2,7 +2,7 @@
  * @writer: 咕鸽仙人
  * @LastEditors: 咕鸽仙人
  * @Date: 2019-03-01 11:20:35
- * @LastEditTime: 2019-03-06 16:28:00
+ * @LastEditTime: 2019-03-06 17:47:23
  * @用户路由
  */
 
@@ -83,6 +83,7 @@ router.post("/", async (ctx, next) => {
   } = ctx.request.body;
   // 修改密码
   if (a === "alterPass") {
+    console.log(ctx.request.body);
     let {
       name,
       newPass
@@ -91,7 +92,7 @@ router.post("/", async (ctx, next) => {
       userName: name
     }, {
       $set: {
-        pass: newPass
+        password: newPass
       }
     });
     ctx.body = res;

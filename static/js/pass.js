@@ -16,7 +16,7 @@ $(function () {
       var data = arr.data[0];
       if (arr.code == 1) {
         $("#L_username").val(data.userName);
-        pass_worn = data.pass;
+        pass_worn = data.password;
       }
 
     }

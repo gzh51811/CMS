@@ -2,7 +2,7 @@
  * @writer: 咕鸽仙人
  * @LastEditors: 咕鸽仙人
  * @Date: 2019-03-01 22:51:52
- * @LastEditTime: 2019-03-06 00:40:30
+ * @LastEditTime: 2019-03-06 17:56:44
  * @ 订单模块
  */
 
@@ -19,7 +19,7 @@ router.get("/", async (ctx, next) => {
   } = ctx.query;
   let res = "";
   if (a === "total") {
-    res = await db.find({
+    res = await db.find_1({
       colName: "cart",
       query: {}
     });
@@ -53,7 +53,7 @@ router.get("/", async (ctx, next) => {
     let {
       number
     } = ctx.query;
-    res = await db.find({
+    res = await db.find_1({
       colName: "cart",
       query: {
         cNum: `${number}`
@@ -82,7 +82,7 @@ router.get("/", async (ctx, next) => {
 //     let {
 //       number
 //     } = ctx.query;
-//     res = await db.find({
+//     res = await db.find_1({
 //       colName: "cart",
 //       query: {
 //         cNum: `${number}`
