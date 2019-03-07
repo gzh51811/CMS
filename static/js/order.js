@@ -1,8 +1,8 @@
 /*
  * @writer: 咕鸽仙人
- * @LastEditors: 咕鸽仙人
+ * @LastEditors: 黄大帅比
  * @Date: 2019-03-05 19:45:09
- * @LastEditTime: 2019-03-06 00:47:38
+ * @LastEditTime: 2019-03-07 12:05:02
  * @订单js代码页
  */
 $(() => {
@@ -33,7 +33,7 @@ $(() => {
   $(".total").html(`
   共有用户：<span style="color:#58bc58;">${totalOrder.length}</span> 位
   `);
-  console.log(totalOrder);
+
   /**
    * @description: 渲染订单表
    * @param {type}
@@ -132,6 +132,16 @@ $(() => {
     index_ = $(this).html() - 1;
     order();
     pageMove();
+  });
+  $(".pageNum").on("click", ".num", function () {
+    // console.log($(this));
+    var this_ = $(this);
+    if ($(this).index() == $(".num").size() - 2) {
+      var _index = this_.index();
+      $(".pageNum").animate({
+        left: "-" + (_index - 2) * 41 + "px"
+      });
+    }
   });
   /**
    * @description: 点击左右加减切换页码

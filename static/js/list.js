@@ -15,12 +15,11 @@ $(() => {
         row: 10
       },
 
-      success: function (arr) {
+      success: function(arr) {
         // console.log(arr);
         let html = "";
         let data_ = arr.data;
         for (let index = 0; index < data_.length; index++) {
-
           html += `
           <tr data-id="${data_[index]._id}">
 					<td>
@@ -39,8 +38,8 @@ $(() => {
 						</a>
 					</td>
 				</tr>
-          `
-        };
+          `;
+        }
 
         $("tbody").html(html);
       }
@@ -61,8 +60,7 @@ $(() => {
         a: "total"
       },
       async: false,
-      success: function (arr) {
-
+      success: function(arr) {
         if (arr.code) {
           num = arr.data.length;
           $(".total").html(`
@@ -85,7 +83,7 @@ $(() => {
       page = Math.ceil(num / 10);
     } else {
       page = num / 10;
-    };
+    }
     // console.log(page);
     let pageHtml = "";
     for (let index = 1; index <= page; index++) {
@@ -94,10 +92,12 @@ $(() => {
       `;
     }
     $(".pageNum").html(pageHtml);
-  }
+  };
   page_num();
   // 首位渲染
-  $(".num").eq(index_).addClass("current");
+  $(".num")
+    .eq(index_)
+    .addClass("current");
 
   /**
    * @description: 根据index_的值进行移动页码
@@ -105,19 +105,28 @@ $(() => {
    * @return:
    */
   var pageMove = () => {
-    if (($(".current").html() * 1) < (page - 1)) {
+    if ($(".current").html() * 1 < page - 1) {
       $(".pageNum").animate({
-        left: "-" + ((index_ - 1) * 41) + "px"
+        left: "-" + (index_ - 1) * 41 + "px"
       });
     }
-
   };
+  $(".pageNum").on("click", ".num", function() {
+    // console.log($(this));
+    var this_ = $(this);
+    if ($(this).index() == $(".num").size() - 2) {
+      var _index = this_.index();
+      $(".pageNum").animate({
+        left: "-" + (_index - 2) * 41 + "px"
+      });
+    }
+  });
   /**
    * @description: 点击移动
    * @param {type}
    * @return:
    */
-  $(".pageNum").on("click", ".num", function () {
+  $(".pageNum").on("click", ".num", function() {
     // console.log($(this));
     // 排它
     $(".num").removeClass("current");
@@ -131,30 +140,34 @@ $(() => {
    * @param {type}
    * @return:
    */
-  $(".page").on("click", ".prev,.next", function () {
+  $(".page").on("click", ".prev,.next", function() {
     // 上一页
-    if ($(this).hasClass('prev')) {
+    if ($(this).hasClass("prev")) {
       if (index_ > 0) {
         $(".num").removeClass("current");
         --index_;
-        $(".num").eq(index_).addClass("current");
+        $(".num")
+          .eq(index_)
+          .addClass("current");
         show();
         pageMove();
       }
     }
     // 下一页
-    if ($(this).hasClass('next')) {
+    if ($(this).hasClass("next")) {
       if (index_ < page - 1) {
         $(".num").removeClass("current");
         ++index_;
-        $(".num").eq(index_).addClass("current");
+        $(".num")
+          .eq(index_)
+          .addClass("current");
         show();
         pageMove();
       }
     }
   });
   //查询用户
-  $(".but_an").click(function () {
+  $(".but_an").click(function() {
     let val = $(".tex_content").val();
     $.ajax({
       type: "GET",
@@ -164,7 +177,7 @@ $(() => {
         name: val
       },
 
-      success: function (arr) {
+      success: function(arr) {
         if (arr.code) {
           try {
             let data_ = arr.data[0];
@@ -192,17 +205,20 @@ $(() => {
             );
           } catch {
             alert("该用户不存在");
-          };
+          }
         }
       }
     });
   });
   // 修改密码
-  $("tbody").on("click", ".td-manage a", function () {
+  $("tbody").on("click", ".td-manage a", function() {
     // console.log($(this))
-    let name = $(this).closest(".td-manage").prevAll(".userName").html();
+    let name = $(this)
+      .closest(".td-manage")
+      .prevAll(".userName")
+      .html();
     // console.log(name)
     // window.open('../../pages/member/password.html')
-    WeAdminShow('添加用户', `./password.html?${name}`, 600, 400)
+    WeAdminShow("添加用户", `./password.html?${name}`, 600, 400);
   });
 });
