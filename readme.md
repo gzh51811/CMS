@@ -1,9 +1,9 @@
 ```javascript
 /*
  * @writer: 黄理强
- * @LastEditors: 咕鸽仙人
+ * @LastEditors: 黄理强
  * @Date: 2019-02-27 16:48:57
- * @LastEditTime: 2019-03-06 23:32:22
+ * @LastEditTime: 2019-03-07 11:38:38
  * @项目readme
  */
 ```
@@ -22,6 +22,7 @@
      项目名称 : 后台管理系统
      人员结构 : 郑晓锋 黄理强 李明钢
      演示地址 : huangdashuaibi.top / 119.23.242.117 (域名访问不了用id访问)
+     github地址: https://github.com/gzh51811/CMS
      账号: 超级管理员:
                 账号:admin
                 密码:666666
@@ -112,7 +113,8 @@
     * 用户名    userName
     * 权限      permission
     * 手机号    Mobile
-    * 邮箱      E-mail
+    * 邮箱      E_mail
+    * 密码      password
     * 注册时间  regDate
 
 * 普通用户表    (users)
@@ -120,7 +122,7 @@
     * 性别      gender
     * 手机号    Mobile
     * 邮箱      E_mail
-    * 密码      pass
+    * 密码      password
     * 地址      site
     * 注册时间  regDate
 
@@ -169,7 +171,7 @@
     * 分类列表  (待修改 : 添加样式)
         * 赠
         * 删
-
+    
     * 商品 : goods
         * 添加商品
         * 删
@@ -181,7 +183,7 @@
 
     * 登录  login
         * 查询
-
+    
     * 超级管理员 admins
         * 增 (添加管理员)
         * 删
