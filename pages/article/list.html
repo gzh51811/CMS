@@ -10,6 +10,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
 		<link rel="stylesheet" href="../../static/css/font.css">
 		<link rel="stylesheet" href="../../static/css/weadmin.css">
+		<script src="../../lib/layui/layui.js" charset="utf-8"></script>
 		<!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
 		<!--[if lt IE 9]>
 	      <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
@@ -37,7 +38,31 @@
 			<a class="layui-btn layui-btn-sm" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
 				<i class="layui-icon" style="line-height:30px">&#x1002;</i></a>
 		</div>
-		<div class="weadmin-body">
+		<div class="weadmin-block demoTable">
+				<button class="layui-btn layui-btn-danger" data-type="getCheckData"><i class="layui-icon">&#xe640;</i>批量删除</button>
+
+				<button class="layui-btn" onclick="WeAdminShow('添加商品','./add.html',600,400)"><i class="layui-icon">&#xe61f;</i>添加</button>
+				<span class="fr" style="line-height:40px">共有数据：8 条</span>
+			</div>
+		<!-- 文档复制部分 -->
+		<table class="layui-hide" id="test" lay-filter="test"></table>
+		
+		<!-- <script type="text/html" id="toolbarDemo">
+		  <div class="layui-btn-container">
+		    <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
+		    <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
+		    <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
+		  </div>
+		</script> -->
+		
+		<script type="text/html" id="barDemo">
+			<a class="layui-btn layui-btn-xs" onclick="WeAdminShow('编辑商品','./add.html',600,400)">编辑</a>
+			<input type="checkbox" name="zzz" lay-skin="switch" lay-text="上架|下架" {{d.status}}>
+		  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+		</script>
+		
+		<!-- 原框架部分 -->
+		<!-- <div class="weadmin-body">
 			<div class="layui-row">
 				<form class="layui-form layui-col-md12 we-search">
 					商品搜索：
@@ -49,12 +74,6 @@
 							<option>数码</option>
 						</select>
 					</div>
-					<!-- <div class="layui-inline">
-						<input class="layui-input" placeholder="开始日" name="start" id="start">
-					</div> -->
-					<!-- <div class="layui-inline">
-						<input class="layui-input" placeholder="截止日" name="end" id="end">
-					</div> -->
 					<div class="layui-inline">
 						<input type="text" name="keyword" placeholder="请输入关键字" autocomplete="off" class="layui-input">
 					</div>
@@ -63,9 +82,7 @@
 			</div>
 			<div class="weadmin-block demoTable">
 				<button class="layui-btn layui-btn-danger" data-type="getCheckData"><i class="layui-icon">&#xe640;</i>批量删除</button>
-				<!-- <button class="layui-btn" data-type="Recommend"><i class="layui-icon">&#xe6c6;</i>推荐</button> -->
-				<!-- <button class="layui-btn" data-type="Top"><i class="layui-icon">&#xe619;</i>置顶</button> -->
-				<!-- <button class="layui-btn" data-type="Review"><i class="layui-icon">&#xe6b2;</i>审核</button> -->
+
 				<button class="layui-btn" onclick="WeAdminShow('添加用户','./add.html',600,400)"><i class="layui-icon">&#xe61f;</i>添加</button>
 				<span class="fr" style="line-height:40px">共有数据：88 条</span>
 			</div>
@@ -75,29 +92,99 @@
 			<script type="text/html" id="recommendTpl">
 				<input type="checkbox" name="zzz" lay-skin="switch" lay-text="上架|下架" {{d.status}}>
 			</script>
-			<!-- <script type="text/html" id="topTpl">
-				<input type="checkbox" name="show" lay-skin="switch" lay-text="已置顶|未置顶" {{d.top}}>
-			</script> -->
-			<!-- <script type="text/html" id="reviewTpl"> -->
-			  <!-- 这里的 checked 的状态只是演示 -->
-			  <!-- <input type="checkbox" name="lock" value="{{d.id}}" title="锁定" lay-filter="lockDemo" {{ d.id == 1 ? 'checked' : '' }}>
-			</script> -->
 
 			<script type="text/html" id="operateTpl">
-				<a title="编辑" onclick="WeAdminEdit('编辑','./edit.html', 2, 600, 400)" href="javascript:;">
+				<a title="编辑" onclick="WeAdminEdit('编辑','./add.html', 2, 600, 400)" href="javascript:;">
 					<i class="layui-icon">&#xe642;</i>
 				</a>
-				<!-- <a title="查看" onclick="WeAdminShow('查看文章','./show.html',600,400)" href="javascript:;">
-					<i class="layui-icon">&#xe63c;</i>
-				</a> -->
 				<a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
 					<i class="layui-icon">&#xe640;</i>
 				</a>
 			</script>
-			<script src="../../lib/layui/layui.js" charset="utf-8"></script>
-			<script src="list.js" type="text/javascript" charset="utf-8"></script>
+			
+		</div> -->
 
-		</div>
+
+		<script src="../../lib/layui/layui.js" charset="utf-8"></script>
+		<script src="list.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+			layui.use('table', function () {
+				var table = layui.table;
+
+				table.render({
+                        elem: '#test',
+                        url: 'https://www.easy-mock.com/mock/5c42e4e9bfeaf7769cc00342/example/goodslist',
+                        // toolbar: '#toolbarDemo',
+                        defaultToolbar: [],
+                        title: '用户数据表',
+                        page: true,
+                        id: 'testReload',
+                        cols: [
+                            [
+                                { type: 'checkbox', fixed: 'left' },
+                                { type: 'numbers', title: 'ID', width: 80, fixed: 'left', unresize: true },
+                                { field: 'goods', title: '商品名称', width: 120, edit: 'text' },
+                                { field: 'classify', title: '商品分类', sort: true },
+                                { field: 'priceOld', title: '原价' },
+                                { field: 'priceNow', title: '现价' },
+                                { field: 'stock', title: '库存' },
+                                { field: 'addtime', title: '加入时间' },
+                                { fixed: 'right', title: '操作', toolbar: '#barDemo', width: 180 }
+                            ]
+                        ]
+                    });
+
+				//头工具栏事件
+				table.on('toolbar(test)', function (obj) {
+					var checkStatus = table.checkStatus(obj.config.id);
+					switch (obj.event) {
+						case 'getCheckData':
+							var data = checkStatus.data;
+							layer.alert(JSON.stringify(data));
+							break;
+						case 'getCheckLength':
+							var data = checkStatus.data;
+							layer.msg('选中了：' + data.length + ' 个');
+							break;
+						case 'isAll':
+							layer.msg(checkStatus.isAll ? '全选' : '未全选');
+							break;
+					};
+				});
+
+				//监听行工具事件
+				table.on('tool(test)', function (obj) {
+					var data = obj.data;
+					//console.log(obj)
+					if (obj.event === 'del') {
+						layer.confirm('真的删除行么', function (index) {
+							obj.del();
+							layer.close(index);
+						});
+					} else if (obj.event === 'edit') {
+						layer.prompt({
+							formType: 2
+							, value: data.email
+						}, function (value, index) {
+							obj.update({
+								email: value
+							});
+							layer.close(index);
+						});
+					}
+				});
+			});
+		</script>
+		<script>
+			layui.use('element', function() {
+            var element = layui.element; //导航的hover效果、二级菜单等功能，需要依赖element模块
+            //监听导航点击
+            element.on('nav(demo)', function(elem) {
+                // console.log(elem);
+                layer.msg(elem.text());
+            });
+        });
+		</script>
 	</body>
 
 </html>

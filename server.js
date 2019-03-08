@@ -8,12 +8,11 @@ const routers = require('./api/routers')
 //2.创建应用
 const app = new koa();
 
-
-
 //4.静态资源服务器
 app.use(static('./'));
+app.use(routers.routes());
 
 //3.监听端口
 app.listen(1811,()=>{
-    console.log('the port is running!');
+    console.log('the server is running is localhost:1811!');
 })

@@ -10,7 +10,7 @@ const mongodb = require('mongodb');
 const MongoClient = mongodb.MongoClient;
 
 const database_url = 'mongodb://localhost:27017';
-const database_name = 'laoxie';
+const database_name = 'CMS';
 
 async function connect(){
     let client = await MongoClient.connect(database_url,{ useNewUrlParser: true });
